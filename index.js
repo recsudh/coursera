@@ -2,6 +2,11 @@ const express= require("express")
 const user_routes= require("./route/user_routes")
 const admin_routes= require("./route/admin_routes")
 
+// mondodb connection
+const mongo = require("./db/mongo")
+
+mongo()
+
 const app = express()
 
 app.use(express.json())
