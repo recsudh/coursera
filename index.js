@@ -10,10 +10,15 @@ mongo()
 const app = express()
 
 app.use(express.json())
+// console.log(req.body);
 app.use("/api/v1/user",user_routes)
 app.use("/api/v1/admin",admin_routes)
 
 const port = process.env.PORT
+
+// app.get("/",(req,res)=>{
+//     console.log(req.body);
+// })
 
 app.listen(port,()=>{
     console.log(`port is on at ${port}`);

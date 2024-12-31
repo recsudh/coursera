@@ -1,10 +1,21 @@
 const express= require("express")
+const {admin} = require("../db/mongo")
 
-const route = express.Router()
-
-
-
+const admin_route = express.Router()
 
 
+admin_route.post("/signup",async(req,res,next)=>{
+    try{
+        console.log(req.body);
+        const Admin = await admin(req.body)
+        console.log(Admin);
+        await Admin.save()
+        res.status(201).send(Admin)
 
-module.exports= route
+    }catch(e){
+        res.status(500).send(e)
+    }
+})
+
+
+module.exports= admin_route
