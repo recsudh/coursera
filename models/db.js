@@ -39,7 +39,7 @@ const purchaseschema= new mongoose.Schema({
 adminschema.pre("save",async function(next){
     const admin = this
     if(admin.isModified("password")){
-         admin.password= await bcryptjs(admin.password,8)
+         admin.password= await bcryptjs.hash(admin.password,8)
     }
     next()
 })
