@@ -35,11 +35,20 @@ const purchaseschema= new mongoose.Schema({
 
 
 
-// middlewres for users
+// middlewres for admin
 adminschema.pre("save",async function(next){
     const admin = this
     if(admin.isModified("password")){
          admin.password= await bcryptjs.hash(admin.password,8)
+    }
+    next()
+})
+
+// middleware for user
+userschema.pre("save",async function(next){
+    const user = this
+    if(user.isModified("password")){
+         user.password= await bcryptjs.hash(user.password,8)
     }
     next()
 })
