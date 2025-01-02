@@ -17,7 +17,6 @@ const courseschema=new mongoose.Schema({
     price:Number,
     imageUrl:String,
     creatorId:objectid
-    
 })
 
 const adminschema=new mongoose.Schema({
