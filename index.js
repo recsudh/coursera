@@ -1,7 +1,7 @@
 const express= require("express")
 const user_routes= require("./route/user_routes")
 const admin_routes= require("./route/admin_routes")
-
+const course_routes= require("./route/course_routes")
 // mondodb connection
 const mongo = require("./db/mongo")
 
@@ -13,6 +13,8 @@ app.use(express.json())
 // console.log(req.body);
 app.use("/api/v1/user",user_routes)
 app.use("/api/v1/admin",admin_routes)
+app.use("/api/v1/admin",course_routes)
+
 
 const port = process.env.PORT
 

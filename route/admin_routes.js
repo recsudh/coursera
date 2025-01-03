@@ -3,7 +3,7 @@ const { admin, course } = require("../models/db");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { admin_auth } = require("../middlewares/auth");
-
+const cookie= require("cookie-parser")
 const admin_route = express.Router();
 
 admin_route.post("/signup", async (req, res, next) => {
@@ -33,6 +33,12 @@ admin_route.post("/signin", async (req, res) => {
     }
     console.log(process.env.ADMIN_SK);
     const token = jwt.sign({ _id: Admin._id }, process.env.ADMIN_SK);
+
+    res.cookie('admin_token', token, {
+      httpOnly: true,   // Prevents JavaScript access to the cookie
+      secure: false,    // Set to true in production (HTTPS only)
+      sameSite: 'Strict', // Prevents CSRF attacks
+    })
     console.log(token);
     res.status(200).send(token);
   } catch (e) {

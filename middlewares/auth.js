@@ -16,6 +16,7 @@ async function user_auth (req,res,next){
 
 // admin
 async function admin_auth (req,res,next){
+    console.log(req.cookies);
     const token = await req.header("Authorization").replace("Bearer ","")
     console.log(token);
     const decode = jwt.verify(token,process.env.ADMIN_SK)
