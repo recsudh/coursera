@@ -2,11 +2,12 @@ const express= require("express")
 const {user} = require("../models/db")
 const bcryptjs= require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const {check,login_check} = require("../middlewares/input_validation")
 
 const user_route = express.Router()
 
 // route.post()
-user_route.post("/signup",async(req,res,next)=>{
+user_route.post("/signup", check ,async(req,res,next)=>{
     try{
         // console.log(req.body);
         const User = await user(req.body)
@@ -21,7 +22,7 @@ user_route.post("/signup",async(req,res,next)=>{
 })
 
 
-user_route.post("/signin",async (req,res)=>{
+user_route.post("/signin",login_check,async (req,res)=>{
     try{
         console.log(req.body);
         const {email,password}= req.body

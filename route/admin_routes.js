@@ -5,21 +5,27 @@ const jwt = require("jsonwebtoken");
 const { admin_auth } = require("../middlewares/auth");
 const cookie= require("cookie-parser")
 const admin_route = express.Router();
+const {z}= require("zod")
+const {check,login_check}= require("../middlewares/input_validation")
 
-admin_route.post("/signup", async (req, res, next) => {
+admin_route.post("/signup", check ,async (req, res, next) => {
   try {
     // console.log(req.body);
+    
     const Admin = await admin(req.body);
     // console.log(Admin);
     await Admin.save();
     res.status(201).send(Admin);
   } catch (e) {
     console.log(e);
-    res.status(500).send(e);
+    res.status(500).send({
+      result: "failed",
+      ERROR:e
+    });
   }
 });
 
-admin_route.post("/signin", async (req, res) => {
+admin_route.post("/signin",login_check, async (req, res) => {
   try {
     console.log(req.body);
     const { email, password } = req.body;
